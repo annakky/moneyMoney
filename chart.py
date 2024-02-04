@@ -29,13 +29,6 @@ class Chart(QWidget):
 
         self.chart.set(data)
 
-        line_sma5 = self.chart.create_line(name='SMA')
-        line_sma20 = self.chart.create_line(name='SMA')
-        sma5 = calculate_sma(data, 5)
-        sma20 = calculate_sma(data, 20)
-        line_sma5.set(sma5)
-        line_sma20.set(sma20)
-
         self.mark(data)
 
     def get_view(self):

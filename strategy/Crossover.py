@@ -1,37 +1,33 @@
-from backtesting.lib import crossover
-from pandas import DataFrame
 from strategy.Strategy import Strategy, Position
-from strategy.sma import calculate_sma, calculate_sma_list
+from strategy.sma import calculate_latest_sma, calculate_sma
 
 class Crossover(Strategy):
-    def init(self):
-        pass
+    def __init__(self, short_period: int, long_period: int):
+        if short_period >= long_period:
+            raise AttributeError("Short Period should smaller than Long Period.")
 
-    def next(self):
-        pass
-
-    def __init__(self, data: DataFrame, short_period: int, long_period: int):
-        # if short_period >= long_period:
-        #     raise AttributeError("Short Period should smaller than Long Period.")
-        # if len(data) < long_period:
-        #     raise AttributeError("Data length should be bigger than Long Period.")
-
-        super().__init__(data)
+        super().__init__(long_period)
         self._short = short_period
         self._long = long_period
+        self._short_sma = []
+        self._long_sma = []
+
+    def append_indicator(self, data):
+        self._short_sma.append(calculate_latest_sma(self._data, self._short))
+        self._long_sma.append(calculate_latest_sma(self._data, self._long))
 
     def position(self) -> Position:
-        sma_short = calculate_sma_list(self._data, self._short)
-        sma_long = calculate_sma_list(self._data, self._long)
+        if self._long_sma[-1] is None or self._long_sma[-2] is None:
+            return Position.NONE
 
-        sma_short_before = sma_short[-2]
-        sma_short_now = sma_short[-1]
-        sma_long_before = sma_long[-2]
-        sma_long_now = sma_long[-1]
+        sma_short_before = self._short_sma[-2]
+        sma_short_now = self._short_sma[-1]
+        sma_long_before = self._long_sma[-2]
+        sma_long_now = self._long_sma[-1]
 
-        if sma_short_before == sma_long_before:
-            sma_short_before = sma_short[-3]
-            sma_long_before = sma_long[-3]
+        if sma_short_before == sma_long_before and self._long_sma[-3] is not None:
+            sma_short_before = self._short_sma[-3]
+            sma_long_before = self._long_sma[-3]
 
         if sma_short_before < sma_long_before and sma_short_now > sma_long_now:
             return Position.BUY
@@ -40,3 +36,10 @@ class Crossover(Strategy):
             return Position.SELL
 
         return Position.NONE
+
+    def draw_indicator(self, chart):
+        line_short = chart.create_line(name='SMA', price_line=False, price_label=False, color="#FFFF33")
+        line_short.set(calculate_sma(chart.bars, self._short))
+
+        line_long = chart.create_line(name='SMA', price_line=False, price_label=False, color="#99FFFF")
+        line_long.set(calculate_sma(chart.bars, self._long))

@@ -1,16 +1,16 @@
 from lightweight_charts.widgets import QtChart
 from candle import get_bar_data
-from strategy.sma import calculate_sma
+from strategy.MyStrategy import MyStrategy
+from strategy.Strategy import Position
 
 class CustomChart(QtChart):
-    def __init__(self, symbol='BTC/USDT', timeframe='1h', start='2022-10-01 00:00:00', end='2023-01-01 00:00:00'):
+    def __init__(self, strategy=None):
         super().__init__()
-        self.start = start
-        self.end = end
-        self.bars = get_bar_data(symbol, timeframe, start, end)
-        self._indicators = []
+        self.start = '2022-10-01 00:00:00'
+        self.end = '2023-01-01 00:00:00'
+        self.strategy = strategy
 
-        self.set_topbar(symbol, timeframe)
+        self.set_topbar('BTC/USDT', '1h')
 
         self.events.search += on_search
         self.draw()
@@ -32,25 +32,20 @@ class CustomChart(QtChart):
             func=timeframe_selection
         )
 
+    def set_strategy(self, strategy: MyStrategy):
+        self.strategy = strategy
+
     def draw(self):
         self.clear_all()
         self.bars = get_bar_data(self.symbol, self.timeframe, self.start, self.end)
         self.set(self.bars)
-        self.draw_indicator()
-        self.draw_mark()
+
+        if self.strategy is not None:
+            self.draw_mark()
+            self.draw_indicator()
 
     def draw_indicator(self):
-        self.clear_indicators()
-
-        line_sma5 = self.create_line(name='SMA', price_line=False, price_label=False)
-        line_sma20 = self.create_line(name='SMA', price_line=False, price_label=False)
-        sma5 = calculate_sma(self.bars, 5)
-        sma20 = calculate_sma(self.bars, 20)
-        line_sma5.set(sma5)
-        line_sma20.set(sma20)
-
-        self._indicators.append(line_sma5)
-        self._indicators.append(line_sma20)
+        self.strategy.draw_indicators(self)
 
     def clear_all(self):
         self.set(None)
@@ -59,30 +54,29 @@ class CustomChart(QtChart):
         self.clear_indicators()
 
     def clear_indicators(self):
-        for indicator in self._indicators:
-            indicator.delete()
+        self.clear_markers()
 
-        self._indicators = []
+        for line in reversed(self._lines):
+            line.delete()
 
     def draw_mark(self):
         self.clear_markers()
 
-        sma5 = calculate_sma(self.bars, 5)
-        sma20 = calculate_sma(self.bars, 20)
+        for i in range(0, len(self.bars)):
+            data = self.bars.iloc[[i]]
+            self.strategy.append_data(data)
+            position = self.strategy.position()
 
-        in_position = False
+            if position is Position.BUY:
+                self.draw_long(data)
+            elif position is Position.SELL:
+                self.draw_short(data)
 
-        for i in range(0, len(sma20) - 1):
-            time = sma20.iloc[i]['time']
-            sma5_value = sma5.loc[time]['SMA']
-            sma20_value = sma20.iloc[i]['SMA']
+    def draw_long(self, data):
+        self.marker(time=data.iloc[0]["time"], text='Long', position='below', shape='arrow_up', color='#990000')
 
-            if sma5_value > sma20_value and not in_position:
-                self.marker(time=time, text='Long', position='below', shape='arrow_up', color='#990000')
-                in_position = True
-            elif sma5_value < sma20_value and in_position:
-                self.marker(time=time, text='Short', position='above', shape='arrow_down', color='#003399')
-                in_position = False
+    def draw_short(self, data):
+        self.marker(time=data.iloc[0]["time"], text='Short', position='above', shape='arrow_down', color='#003399')
 
 def on_search(chart, search):
     chart.spinner(True)

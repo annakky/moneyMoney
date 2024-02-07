@@ -3,11 +3,11 @@ import ccxt
 import pandas
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
+columns = ['time', 'open', 'high', 'low', 'close', 'volume']
 
 def get_bar_data(symbol, timeframe, start, end):
     binance = ccxt.binance()
     limit = 500
-    columns = ['time', 'open', 'high', 'low', 'close', 'volume']
     start = binance.parse8601(start)
     end = binance.parse8601(end)
 
@@ -23,6 +23,7 @@ def get_bar_data(symbol, timeframe, start, end):
         start = data[-1][0] + binance.parse_timeframe(timeframe) * limit
 
     result['time'] = pandas.to_datetime(result['time'], unit='ms')
-    result.set_index(result['time'], inplace=True)
+    result.set_index(keys='time')
+    result.sort_index()
 
     return result

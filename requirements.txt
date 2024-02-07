@@ -73,6 +73,7 @@ numpy==1.26.3
 overrides==7.6.0
 packaging==23.2
 pandas==2.2.0
+pandas-ta==0.3.14b0
 pandocfilters==1.5.1
 parso==0.8.3
 pillow==10.2.0
@@ -87,6 +88,12 @@ pycares==4.4.0
 pycparser==2.21
 pycryptodome==3.20.0
 pygments==2.17.2
+PyQt5==5.15.10
+PyQt5-Qt5==5.15.2
+PyQt5-sip==12.13.0
+PyQt5-stubs==5.15.6.0
+PyQtWebEngine==5.15.6
+PyQtWebEngine-Qt5==5.15.2
 python-binance==1.0.19
 python-dateutil==2.8.2
 python-json-logger==2.0.7

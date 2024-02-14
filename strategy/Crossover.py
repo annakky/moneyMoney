@@ -12,6 +12,9 @@ class Crossover(Strategy):
         self._short_sma = []
         self._long_sma = []
 
+        self._short_line = None
+        self._long_line = None
+
     def append_indicator(self, data):
         self._short_sma.append(calculate_latest_sma(self._data, self._short))
         self._long_sma.append(calculate_latest_sma(self._data, self._long))
@@ -30,9 +33,11 @@ class Crossover(Strategy):
             sma_long_before = self._long_sma[-3]
 
         if sma_short_before < sma_long_before and sma_short_now > sma_long_now:
+        # if sma_short_now > sma_long_now:
             return Position.BUY
 
         elif sma_short_before > sma_long_before and sma_short_now < sma_long_now:
+        # if sma_short_now < sma_long_now:
             return Position.SELL
 
         return Position.NONE
@@ -40,6 +45,14 @@ class Crossover(Strategy):
     def draw_indicator(self, chart):
         line_short = chart.create_line(name='SMA', price_line=False, price_label=False, color="#FFFF33")
         line_short.set(calculate_sma(chart.bars, self._short))
+        self._short_line = line_short
 
         line_long = chart.create_line(name='SMA', price_line=False, price_label=False, color="#99FFFF")
         line_long.set(calculate_sma(chart.bars, self._long))
+        self._long_line = line_long
+
+    def clear_indicator(self, chart):
+        if self._short_line is not None:
+            self._short_line.delete()
+        if self._long_line is not None:
+            self._long_line.delete()

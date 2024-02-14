@@ -33,3 +33,7 @@ class Strategy(metaclass=ABCMeta):
     @abstractmethod
     def draw_indicator(self, chart):
         pass
+
+    @abstractmethod
+    def clear_indicator(self, chart):
+        pass

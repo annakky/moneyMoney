@@ -2,15 +2,19 @@ from lightweight_charts.widgets import QtChart
 from candle import get_bar_data
 from strategy.MyStrategy import MyStrategy
 from strategy.Strategy import Position
+from strategy.rsi import calculate_rsi
 
 class CustomChart(QtChart):
     def __init__(self, strategy=None):
-        super().__init__()
-        self.start = '2022-10-01 00:00:00'
+        self.width = 1
+        self.height = 1
+        super().__init__(inner_width=self.width, inner_height=self.height)
+        self.start = '2022-01-01 00:00:00'
         self.end = '2023-01-01 00:00:00'
         self.strategy = strategy
 
         self.set_topbar('BTC/USDT', '1h')
+        self.bars = get_bar_data(self.symbol, self.timeframe, self.start, self.end)
 
         self.events.search += on_search
         self.draw()
@@ -55,9 +59,7 @@ class CustomChart(QtChart):
 
     def clear_indicators(self):
         self.clear_markers()
-
-        for line in reversed(self._lines):
-            line.delete()
+        self.strategy.clear_indicators(self)
 
     def draw_mark(self):
         self.clear_markers()

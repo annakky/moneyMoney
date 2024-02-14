@@ -19,6 +19,10 @@ class MyStrategy:
         for strategy in self._strategies:
             strategy.draw_indicator(chart)
 
+    def clear_indicators(self, chart):
+        for strategy in self._strategies:
+            strategy.clear_indicator(chart)
+
     def append_data(self, data: DataFrame):
         self._is_position_calculated = False
         for s in self._strategies:

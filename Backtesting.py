@@ -10,9 +10,12 @@ from strategy.Strategy import Position
 class TestStrategy(Strategy):
     def init(self):
         crossover = Crossover(5, 20)
-        rsi = RsiRange(14)
+        rsi = RsiRange(14, 40, 60)
         self._my_strategy = MyStrategy([crossover, rsi], 2)
         self._custom_index = 0
+
+        self.size = self._my_strategy.position_size
+        self.sl = self._my_strategy.stop_loss
 
     def next(self):
         self._custom_index += 1
@@ -20,10 +23,12 @@ class TestStrategy(Strategy):
         data.columns = data.columns.str.lower()
         self._my_strategy.append_data(data)
 
+        price = self.data.Close[-1]
+
         position = self._my_strategy.position()
 
         if position is Position.BUY:
-            self.buy()
+            self.buy(size=self.size, sl=price * self.sl)
         elif position is Position.SELL:
             self.sell()
 

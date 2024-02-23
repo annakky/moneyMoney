@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
-from custom_chart import CustomChart
+from Chart import Chart
 from strategy.Crossover import Crossover
 from strategy.MyStrategy import MyStrategy
 from strategy.RsiRange import RsiRange
@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
     crossover = Crossover(5, 20)
     rsi = RsiRange(14)
-    chart = CustomChart(MyStrategy([crossover, rsi], threshold=2))
+    chart = Chart(MyStrategy([crossover, rsi], threshold=2))
 
     layout.addWidget(chart.get_webview())
 

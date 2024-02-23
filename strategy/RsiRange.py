@@ -2,12 +2,12 @@ from strategy.Strategy import Strategy, Position
 from strategy.rsi import calculate_latest_rsi, calculate_rsi
 
 class RsiRange(Strategy):
-    def __init__(self, period: int):
+    def __init__(self, period: int, low, high):
         super().__init__(period)
         self._period = period
         self._rsi = []
-        self._low = 30
-        self._high = 70
+        self._low = low
+        self._high = high
         self._subchart = None
         self._line = None
 

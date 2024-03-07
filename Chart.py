@@ -4,7 +4,7 @@ from strategy.MyStrategy import MyStrategy
 from strategy.Strategy import Position
 
 class Chart(QtChart):
-    def __init__(self, strategy=None, start='2022-01-01 00:00:00', end='2023-01-01 00:00:00'):
+    def __init__(self, strategy=None, start='2023-01-01 00:00:00', end='2024-01-01 00:00:00'):
         self.width = 1
         self.height = 1
         super().__init__(inner_width=self.width, inner_height=self.height)
@@ -13,7 +13,6 @@ class Chart(QtChart):
         self.strategy = strategy
 
         self.set_topbar('BTC/USDT', '1h')
-        self.bars = get_bar_data(self.symbol, self.timeframe, self.start, self.end)
 
         self.events.search += on_search
         self.draw()

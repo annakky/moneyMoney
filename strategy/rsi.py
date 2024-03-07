@@ -1,4 +1,3 @@
-import pandas
 import talib
 from pandas import DataFrame
 

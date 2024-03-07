@@ -196,6 +196,16 @@
          </layout>
         </item>
         <item>
+         <widget class="Line" name="line">
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_3">

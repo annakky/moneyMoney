@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="strategy_button">
+       <property name="text">
+        <string>Strategy</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="backtesting_button">
+       <property name="text">
+        <string>Backtesting</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="SampleButton_2">
+       <property name="text">
+        <string>????</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>strategy_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>move_to_strategy_widget()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>150</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>backtesting_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>move_to_backtesting_widget()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>212</x>
+     <y>153</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>204</x>
+     <y>308</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>move_to_strategy_widget()</slot>
+  <slot>move_to_backtesting_widget()</slot>
+ </slots>
+</ui>

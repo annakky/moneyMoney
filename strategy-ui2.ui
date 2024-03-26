@@ -348,31 +348,6 @@
          </item>
         </layout>
        </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QPushButton" name="strategy_button">
-           <property name="text">
-            <string>Strategy</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="backtesting_button">
-           <property name="text">
-            <string>Backtesting</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="SampleButton_2">
-           <property name="text">
-            <string>????</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
       </layout>
      </item>
     </layout>
@@ -394,38 +369,6 @@
     <hint type="destinationlabel">
      <x>540</x>
      <y>333</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>strategy_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>move_to_strategy_widget()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>106</x>
-     <y>304</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>281</x>
-     <y>397</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>backtesting_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>move_to_backtesting_widget()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>275</x>
-     <y>307</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>262</x>
-     <y>373</y>
     </hint>
    </hints>
   </connection>

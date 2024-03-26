@@ -1,5 +1,5 @@
 from PyQt5 import uic, QtWidgets
-from PyQt5.QtWidgets import QWidget, QBoxLayout, QVBoxLayout, QGridLayout
+from PyQt5.QtWidgets import QWidget, QBoxLayout, QVBoxLayout, QGridLayout, QSizePolicy
 from Chart import Chart
 from strategy.Crossover import Crossover
 from strategy.MyStrategy import MyStrategy
@@ -44,3 +44,9 @@ class StrategyWidget(QWidget, form_class):
         self.chart.set_datetime(self.start, self.end)
         self.chart.set_strategy(self.my_strategy)
         self.chart.draw()
+
+    def move_to_strategy_widget(self):
+        pass
+
+    def move_to_backtesting_widget(self):
+        self.parentWidget().setCurrentIndex(1)

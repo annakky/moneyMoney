@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>770</width>
-    <height>536</height>
+    <width>541</width>
+    <height>334</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,9 +20,6 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <property name="sizeConstraint">
-    <enum>QLayout::SetMaximumSize</enum>
-   </property>
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="body_layout">
      <property name="sizeConstraint">
@@ -351,6 +348,31 @@
          </item>
         </layout>
        </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="strategy_button">
+           <property name="text">
+            <string>Strategy</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="backtesting_button">
+           <property name="text">
+            <string>Backtesting</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="SampleButton_2">
+           <property name="text">
+            <string>????</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
       </layout>
      </item>
     </layout>
@@ -366,17 +388,51 @@
    <slot>create_strategy()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>484</x>
-     <y>254</y>
+     <x>528</x>
+     <y>277</y>
     </hint>
     <hint type="destinationlabel">
-     <x>692</x>
-     <y>475</y>
+     <x>540</x>
+     <y>333</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>strategy_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>move_to_strategy_widget()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>106</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>281</x>
+     <y>397</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>backtesting_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>move_to_backtesting_widget()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>275</x>
+     <y>307</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>262</x>
+     <y>373</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>create_strategy()</slot>
+  <slot>move_to_strategy_widget()</slot>
+  <slot>move_to_backtesting_widget()</slot>
  </slots>
 </ui>

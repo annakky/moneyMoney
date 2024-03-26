@@ -26,7 +26,8 @@ class RsiRange(Strategy):
         return Position.NONE
 
     def draw_indicator(self, chart):
-        chart.resize(chart.width, chart.height - 0.2)
+        chart.height -= 0.2
+        chart.resize(chart.width, chart.height)
 
         if self._subchart is None:
             self._subchart = chart.create_subchart(position='bottom', width=1, height=0.2, sync=True)
@@ -40,11 +41,15 @@ class RsiRange(Strategy):
         self._line = line
 
     def clear_indicator(self, chart):
-        chart.resize(chart.width, chart.height + 0.2)
+        chart.height = 1
+        chart.resize(chart.width, chart.height)
 
         if self._subchart is None:
             return
 
         self._subchart.resize(0, 0)
         self._subchart.clear_horizontal_lines()
-        self._line.delete()
+
+        if self._line is not None:
+            self._line.delete()
+            self._line = None

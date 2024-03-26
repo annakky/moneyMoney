@@ -54,5 +54,7 @@ class Crossover(Strategy):
     def clear_indicator(self, chart):
         if self._short_line is not None:
             self._short_line.delete()
+            self._short_line = None
         if self._long_line is not None:
             self._long_line.delete()
+            self._long_line = None

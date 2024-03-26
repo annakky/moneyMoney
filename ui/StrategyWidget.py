@@ -29,6 +29,7 @@ class StrategyWidget(QWidget, form_class):
             long = self.crossover_long_value.value()
             strategies.append(Crossover(short, long))
 
+        self.chart.clear_all()
         self.my_strategy = MyStrategy(strategies, self.threshold_value.value())
 
         self.redraw_chart()

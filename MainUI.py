@@ -1,12 +1,11 @@
 import sys
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QSizePolicy, QStackedWidget, QVBoxLayout, QGridLayout, \
-    QPushButton, QWidget
-from ui.BacktestingWidget import BacktestingWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget, QVBoxLayout, QWidget
+from ui.BacktestingMainPage import BacktestingMainPage
 from ui.RedirectionButtonWidget import RedirectionButtonWidget
-from ui.StrategyWidget import StrategyWidget
+from ui.StrategyMainPage import StrategyMainPage
 
-form_class = uic.loadUiType("strategy-ui.ui")[0]
+form_class = uic.loadUiType("static/strategy-ui.ui")[0]
 
 class MyMainWindow(QMainWindow, form_class):
     def __init__(self, parent=None):
@@ -22,12 +21,12 @@ class MyMainWindow(QMainWindow, form_class):
         self.stackedWidget = QStackedWidget(self.centralWidget)
         self.central_layout.addWidget(self.stackedWidget)
 
-        # 전략 위젯 추가
-        self.strategy_widget = StrategyWidget(self)
-        self.stackedWidget.addWidget(self.strategy_widget)
+        # 전략 메인 페이지 추가
+        self.strategy_main_page = StrategyMainPage(self)
+        self.stackedWidget.addWidget(self.strategy_main_page)
 
         # 백테스팅 위젯 추가
-        self.backtesting_widget = BacktestingWidget(self)
+        self.backtesting_widget = BacktestingMainPage(self)
         self.stackedWidget.addWidget(self.backtesting_widget)
 
         # 버튼 추가

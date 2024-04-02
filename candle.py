@@ -1,3 +1,4 @@
+import time
 import warnings
 import ccxt
 import pandas
@@ -6,6 +7,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 columns = ['time', 'open', 'high', 'low', 'close', 'volume']
 
 def get_bar_data(symbol, timeframe, start, end):
+    start_time = time.time()
     binance = ccxt.binance()
     limit = 500
     start = binance.parse8601(start)
@@ -25,5 +27,6 @@ def get_bar_data(symbol, timeframe, start, end):
     result['time'] = pandas.to_datetime(result['time'], unit='ms')
     result.set_index(keys='time')
     result.sort_index()
+    print(time.time() - start_time)
 
     return result

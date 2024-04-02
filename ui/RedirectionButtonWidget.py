@@ -2,7 +2,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QWidget
 
 
-form_class = uic.loadUiType("redirection-button-ui.ui")[0]
+form_class = uic.loadUiType("static/redirection-button-ui.ui")[0]
 
 class RedirectionButtonWidget(QWidget, form_class):
     def __init__(self, parent):

@@ -41,3 +41,13 @@ class MyStrategy:
                 return Position.SELL
 
         return Position.NONE
+
+    def set_stop_loss(self, value):
+        if value > 1:
+            print("STOP LOSS는 1보다 클 수 없습니다. 기본값 0.9로 입력됩니다.")
+            self.stop_loss = 0.9
+        elif value < 0:
+            print("STOP LOSS는 0보다 작을 수 없습니다. 기본값 0.9로 입력됩니다.")
+            self.stop_loss = 0.9
+        else:
+            self.stop_loss = value

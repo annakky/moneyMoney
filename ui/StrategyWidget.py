@@ -13,7 +13,7 @@ class StrategyWidget(QWidget, form_class):
 
         self.my_strategy = MyStrategy([], 0)
 
-    def create_strategy(self):
+    def create_strategy(self, stop_loss=0.9):
         strategies = []
         if self.rsi_checkbox.isChecked():
             period = self.rsi_period_value.value()
@@ -26,4 +26,4 @@ class StrategyWidget(QWidget, form_class):
             long = self.crossover_long_value.value()
             strategies.append(Crossover(short, long))
 
-        self.my_strategy = MyStrategy(strategies, self.threshold_value.value())
+        self.my_strategy = MyStrategy(strategies, self.threshold_value.value(), stop_loss)

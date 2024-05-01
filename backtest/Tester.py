@@ -39,6 +39,4 @@ class Tester:
         backtesting = Backtest(data, TestingStrategy, cash=1000000, commission=0.005)
         result = backtesting.run()
 
-        print(result)
-        print(result.get('Return [%]'))
         return result

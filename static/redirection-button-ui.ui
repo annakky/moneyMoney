@@ -33,7 +33,7 @@
      <item>
       <widget class="QPushButton" name="SampleButton_2">
        <property name="text">
-        <string>????</string>
+        <string>AutoTrade</string>
        </property>
       </widget>
      </item>
@@ -75,9 +75,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>SampleButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>move_to_autotrade_widget()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>336</x>
+     <y>154</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>334</x>
+     <y>300</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>move_to_strategy_widget()</slot>
   <slot>move_to_backtesting_widget()</slot>
+  <slot>move_to_autotrade_widget()</slot>
  </slots>
 </ui>

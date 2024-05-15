@@ -14,3 +14,6 @@ class RedirectionButtonWidget(QWidget, form_class):
 
     def move_to_backtesting_widget(self):
         self.window().stackedWidget.setCurrentIndex(1)
+
+    def move_to_autotrade_widget(self):
+        self.window().stackedWidget.setCurrentIndex(2)

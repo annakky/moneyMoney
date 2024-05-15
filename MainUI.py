@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget, QVBoxLayout, QWidget
+from ui.AutoTradeMainPage import AutoTradeMainPage
 from ui.BacktestingMainPage import BacktestingMainPage
 from ui.RedirectionButtonWidget import RedirectionButtonWidget
 from ui.StrategyMainPage import StrategyMainPage
@@ -28,6 +29,10 @@ class MyMainWindow(QMainWindow, form_class):
         # 백테스팅 위젯 추가
         self.backtesting_widget = BacktestingMainPage(self)
         self.stackedWidget.addWidget(self.backtesting_widget)
+
+        # 자동매매 위젯 추가
+        self.autotrade_widget = AutoTradeMainPage(self)
+        self.stackedWidget.addWidget(self.autotrade_widget)
 
         # 버튼 추가
         self.button_widget = RedirectionButtonWidget(self)

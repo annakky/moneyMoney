@@ -1,4 +1,6 @@
+import asyncio
 from datetime import datetime, timedelta
+from PyQt5.QtCore import QThread, pyqtSignal
 from binance import AsyncClient, BinanceSocketManager
 from pandas import DataFrame
 from autotrade.Database import Database
@@ -7,8 +9,11 @@ from candle import get_bar_data
 from strategy.MyStrategy import MyStrategy
 from strategy.Strategy import Position
 
-class AutoTrader:
+class AutoTrader(QThread):
+    transaction_event = pyqtSignal()
+
     def __init__(self, strategy: MyStrategy, symbol, timeframe):
+        super().__init__()
         self.strategy = strategy
         self.symbol = symbol
         self.timeframe = timeframe
@@ -19,7 +24,10 @@ class AutoTrader:
         self.symbol = symbol
         self.timeframe = timeframe
 
-    async def run(self):
+    def run(self):
+        asyncio.run(self.auto_trade())
+
+    async def auto_trade(self):
         client = await AsyncClient.create()
         socket_manager = BinanceSocketManager(client)
         self.set_past_data()
@@ -33,11 +41,12 @@ class AutoTrader:
                 event_time = response['E']
 
                 if event_time > close_time:
+                    print("NEW DATA")
                     self.new_data(response)
 
     def set_past_data(self):
         end = datetime.now()
-        start = end - timedelta(days=365)
+        start = end - timedelta(days=1)
         data = get_bar_data(self.symbol, self.timeframe, str(start), str(end))
 
         for i in range(0, len(data)):
@@ -60,13 +69,18 @@ class AutoTrader:
             self.buy(data)
         elif position is Position.SELL:
             self.sell(data)
+        # TODO database insert에서 잘못된 값 들어가는 버그 수정
+        else:
+            self.buy(data)
 
     def buy(self, data):
         print("BUY!!")
         transaction = Transaction(data['time'], CommandType.BUY, self.symbol, data['close'], 1)
         self.database.save_transaction(transaction)
+        self.transaction_event.emit()
 
     def sell(self, data):
         print("SELL!!")
         transaction = Transaction(data['time'], CommandType.SELL, self.symbol, data['close'], 1)
         self.database.save_transaction(transaction)
+        self.transaction_event.emit()

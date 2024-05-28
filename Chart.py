@@ -12,7 +12,7 @@ class Chart(QtChart):
         self.end = end
         self.strategy = strategy
 
-        self.set_topbar('BTC/USDT', '1h')
+        self.set_topbar('BTCUSDT', '1h')
 
         self.events.search += on_search
         self.draw()

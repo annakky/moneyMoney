@@ -38,7 +38,7 @@ class BacktestingMainPage(QWidget, form_class):
         string_format = 'yyyy-MM-dd hh:mm:ss'
         start = self.start_value.dateTime().toString(string_format)
         end = self.end_value.dateTime().toString(string_format)
-        symbol = 'BTC/USDT'
+        symbol = 'BTCUSDT'
         timeframe = self.timeframe_value.currentText()
         stop_loss = (100 + self.stoploss_value.value()) / 100
 

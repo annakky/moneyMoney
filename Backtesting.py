@@ -35,7 +35,7 @@ class TestStrategy(Strategy):
 
 start = '2021-01-01 00:00:00'
 end = '2023-01-01 00:00:00'
-df = get_bar_data('BTC/USDT', '1h', start, end)
+df = get_bar_data('BTCUSDT', '1h', start, end)
 
 df.columns = df.columns.str.capitalize()
 df.index = pandas.DatetimeIndex(df['Time'])

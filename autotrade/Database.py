@@ -9,7 +9,7 @@ class Database:
 
     def save_transaction(self, transaction: Transaction):
         data = {
-            'date': [transaction.date],
+            'date': [transaction.date.strftime('%Y-%m-%d %H:%M:%S')],
             'command': [transaction.command.value],
             'symbol': [transaction.symbol],
             'price': [transaction.price],
@@ -25,7 +25,7 @@ class Database:
 
     def save_transactions(self, transactions: [Transaction]):
         data = {
-            'date': [transaction.date for transaction in transactions],
+            'date': [transaction.date.strftime('%Y-%m-%d %H:%M:%S') for transaction in transactions],
             'command': [transaction.command.value for transaction in transactions],
             'symbol': [transaction.symbol for transaction in transactions],
             'price': [transaction.price for transaction in transactions],
@@ -39,8 +39,10 @@ class Database:
         else:
             df.to_csv(self.FILE_NAME, mode='a', header=False, index=False)
 
-    # TODO file 없을 때 에러 수정
     def load_all_transaction(self):
+        if not os.path.exists(self.FILE_NAME):
+            pd.DataFrame(columns=self.headers).to_csv(self.FILE_NAME, index=False)
+
         df = pd.read_csv(self.FILE_NAME)
         return Transaction.from_dataframe(df)
 

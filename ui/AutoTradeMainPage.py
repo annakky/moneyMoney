@@ -62,7 +62,8 @@ class AutoTradeMainPage(QWidget, form_class):
         self.autotrade_button.setText("중지")
         self.autotrade_button.setStyleSheet("background-color: rgba(200, 0, 0, 200);")
 
-        self.trader.set_trader(self.strategy_widget.my_strategy, 'BTCUSDT', '1m')
+        timeframe = self.trade_timeframe_value.currentText()
+        self.trader.set_trader(self.strategy_widget.my_strategy, 'BTCUSDT', timeframe)
         self.trader.start()
 
     def stop_autotrade(self):

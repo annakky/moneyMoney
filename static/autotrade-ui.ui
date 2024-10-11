@@ -17,6 +17,95 @@
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="body_layout">
      <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_21">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>TimeFrame</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="trade_timeframe_value">
+           <property name="currentIndex">
+            <number>1</number>
+           </property>
+           <item>
+            <property name="text">
+             <string>15m</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>1h</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>4h</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>1d</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>1w</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_26">
+         <item>
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>StopLoss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="trade_stoploss_value">
+           <property name="buttonSymbols">
+            <enum>QAbstractSpinBox::UpDownArrows</enum>
+           </property>
+           <property name="suffix">
+            <string>%</string>
+           </property>
+           <property name="prefix">
+            <string/>
+           </property>
+           <property name="minimum">
+            <number>-100</number>
+           </property>
+           <property name="maximum">
+            <number>0</number>
+           </property>
+           <property name="stepType">
+            <enum>QAbstractSpinBox::DefaultStepType</enum>
+           </property>
+           <property name="value">
+            <number>-10</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
       <widget class="QPushButton" name="autotrade_button">
        <property name="styleSheet">
         <string notr="true"/>

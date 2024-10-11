@@ -41,7 +41,6 @@ class AutoTrader(QThread):
                 event_time = response['E']
 
                 if event_time > close_time:
-                    print("NEW DATA")
                     self.new_data(response)
 
     def set_past_data(self):
@@ -55,7 +54,7 @@ class AutoTrader(QThread):
 
     def new_data(self, response):
         data = DataFrame({
-            'time': [datetime.fromtimestamp(response['k']['t'] / 1000)],
+            'time': [response['k']['t']],
             'open': [response['k']['o']],
             'high': [response['k']['h']],
             'low': [response['k']['l']],
@@ -69,18 +68,13 @@ class AutoTrader(QThread):
             self.buy(data)
         elif position is Position.SELL:
             self.sell(data)
-        # TODO database insert에서 잘못된 값 들어가는 버그 수정
-        else:
-            self.buy(data)
 
     def buy(self, data):
-        print("BUY!!")
-        transaction = Transaction(data['time'], CommandType.BUY, self.symbol, data['close'], 1)
+        transaction = Transaction(datetime.now(), CommandType.BUY, self.symbol, data['close'][0], 1)
         self.database.save_transaction(transaction)
         self.transaction_event.emit()
 
     def sell(self, data):
-        print("SELL!!")
-        transaction = Transaction(data['time'], CommandType.SELL, self.symbol, data['close'], 1)
+        transaction = Transaction(data['time'], CommandType.SELL, self.symbol, data['close'][0], 1)
         self.database.save_transaction(transaction)
         self.transaction_event.emit()

@@ -184,6 +184,9 @@ background-color: rgb(255, 233, 213);</string>
             </item>
             <item>
              <widget class="QSpinBox" name="crossover_short_value">
+              <property name="maximum">
+               <number>500</number>
+              </property>
               <property name="value">
                <number>5</number>
               </property>
@@ -201,6 +204,9 @@ background-color: rgb(255, 233, 213);</string>
             </item>
             <item>
              <widget class="QSpinBox" name="crossover_long_value">
+              <property name="maximum">
+               <number>500</number>
+              </property>
               <property name="value">
                <number>20</number>
               </property>

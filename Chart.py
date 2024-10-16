@@ -84,9 +84,9 @@ class Chart(QtChart):
 
 def on_search(chart, search):
     chart.spinner(True)
+    chart.topbar['symbol'].set(search)
     chart.draw()
     chart.spinner(False)
-    chart.topbar['symbol'].set(search)
 
 
 def timeframe_selection(chart):

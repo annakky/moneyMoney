@@ -23,6 +23,7 @@ class StrategyMainPage(QWidget, form_class):
     def redraw_chart(self):
         self.set_datetime()
         self.chart.set_datetime(self.start, self.end)
+        self.chart.clear_all()
         self.strategy_widget.create_strategy()
         self.chart.set_strategy(self.strategy_widget.my_strategy)
         self.chart.draw()

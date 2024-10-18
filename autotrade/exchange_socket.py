@@ -32,7 +32,6 @@ from pandas import DataFrame
 https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#klinecandlestick-streams
 """
 
-
 def timestamp_to_datetime(timestamp):
     dt_object = datetime.fromtimestamp(timestamp / 1000)
     return dt_object.strftime("%Y-%m-%d %H:%M:%S")
@@ -42,7 +41,6 @@ def handle_candlestick(msg):
     event_time = msg['E']
 
     if event_time > close_time:
-        print("===============")
         print(timestamp_to_datetime(close_time))
         print(msg['k']['c'])
         print("\n")

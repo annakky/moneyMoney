@@ -1,5 +1,6 @@
 import sys
 from PyQt5 import uic
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget, QVBoxLayout, QWidget
 from ui.AutoTradeMainPage import AutoTradeMainPage
 from ui.BacktestingMainPage import BacktestingMainPage
@@ -11,6 +12,8 @@ form_class = uic.loadUiType("static/strategy-ui.ui")[0]
 class MyMainWindow(QMainWindow, form_class):
     def __init__(self, parent=None):
         super(MyMainWindow, self).__init__(parent)
+        self.setWindowIcon(QIcon('./static/icon.jpg'))
+        self.setWindowTitle("머니머니")
         # 중앙 위젯 생성
         self.centralWidget = QWidget(self)
         self.setCentralWidget(self.centralWidget)
